@@ -74,7 +74,7 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.editReply(
         embed({
           title: "Error.",
-          contents: e.message,
+          contents: (e as Error).message,
           color: 0xff0000,
         })
       )

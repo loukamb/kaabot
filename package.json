@@ -1,17 +1,15 @@
 {
-  "name": "kaaba",
+  "name": "kaabot",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
   "main": "src/index.mjs",
   "type": "module",
   "scripts": {
     "start": "node ./dist/index.mjs",
-    "build": "esbuild ./src/index.ts --bundle --platform=node --packages=external --format=esm --outfile=./dist/index.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild ./src/index.ts --bundle --platform=node --packages=external --format=esm --outfile=./dist/index.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "https://github.com/mblouka",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chrono-node": "^2.7.5",
     "dayjs": "^1.11.10",

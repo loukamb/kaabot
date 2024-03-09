@@ -18,11 +18,12 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js"
 
 // Import & export stuff.
+import source from "./source"
 import verse from "./verse"
 import sermon from "./sermon"
 import calendar from "./calendar"
 import library from "./library"
-export default [verse, sermon, calendar, library]
+export default [source, verse, sermon, calendar, library]
 
 export interface BotCommandOption {
   readonly name: string

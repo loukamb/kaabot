@@ -13,8 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@calidy/dayjs-calendarsystems": "^1.11.3",
-    "@js-temporal/polyfill": "^0.4.4",
     "chrono-node": "^2.7.5",
     "dayjs": "^1.11.10",
     "discord.js": "^14.14.1",
@@ -23,7 +21,6 @@
     "node-html-parser": "^6.1.12"
   },
   "devDependencies": {
-    "esbuild": "^0.20.1",
-    "nodemon": "^3.1.0"
+    "esbuild": "^0.20.1"
   }
 }

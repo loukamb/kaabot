@@ -23,7 +23,8 @@ import verse from "./verse"
 import sermon from "./sermon"
 import calendar from "./calendar"
 import library from "./library"
-export default [source, verse, sermon, calendar, library]
+import help from "./help"
+export default [source, verse, sermon, calendar, library, help]
 
 export interface BotCommandOption {
   readonly name: string

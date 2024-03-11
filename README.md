@@ -1,9 +1,9 @@
 <img width="64" height="64" align="right" src="logo.svg">
 <h1>Kaab'ot</h1>
 
-Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and various information sourced from the Ahmadiyya Muslim Jama'at. [**Add now.**](https://discord.com/oauth2/authorize?client_id=1215815540803895378&permissions=277025442880&scope=bot)
+Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and various information sourced from the Ahmadiyya Muslim Jama'at. [**Add now.**](https://add.kaabot.org)
 
-[![](https://dcbadge.vercel.app/api/server/sXbjZzH5zy?style=flat)](https://discord.gg/sXbjZzH5zy)
+[![](https://dcbadge.vercel.app/api/server/sXbjZzH5zy?style=flat)](https://discord.kaabot.org)
 
 ### Features
 
@@ -43,7 +43,7 @@ Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and 
 
 ## Usage
 
-You can add this Discord bot to your guild with [this link](https://discord.com/oauth2/authorize?client_id=1215815540803895378&permissions=277025442880&scope=bot). If you'd like to try the bot before inviting it to your guild, you can join the official [Discord server](https://discord.gg/sXbjZzH5zy) first.
+You can add this Discord bot to your guild with [this link](https://add.kaabot.org). If you'd like to try the bot before inviting it to your guild, you can join the official [Discord server](https://discord.kaabot.org) first.
 
 ### Self-hosting
 
@@ -78,7 +78,7 @@ Not all writings will be retrieved (as not all books are available in PDF format
 
 ## Theology
 
-This repository and its facilities (i.e., discussions and issues) are **not** places for theological discussion or debate. All communication done on this repository is for <ins>technical</ins> purposes only. Keep religious discussion and debate out of the repository. You may discuss religious matters in the off-topic sections of the [Discord server](https://discord.gg/sXbjZzH5zy), however. If you dislike what this bot does or where it comes from, simply do not use it or choose an alternative.
+This repository and its facilities (i.e., discussions and issues) are **not** places for theological discussion or debate. All communication done on this repository is for <ins>technical</ins> purposes only. Keep religious discussion and debate out of the repository. You may discuss religious matters in the off-topic sections of the [Discord server](https://discord.kaabot.org), however. If you dislike what this bot does or where it comes from, simply do not use it or choose an alternative.
 
 ## License
 

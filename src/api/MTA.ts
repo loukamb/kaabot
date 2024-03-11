@@ -220,7 +220,7 @@ export async function sermons() {
       title: entry.title_eng,
       description: entry.description_eng,
       thumbnail: entry.teaserImage["16x9"]
-        ? `https://mta-vod.akamaized.net${entry.permalink}`
+        ? `https://mta-vod.akamaized.net${entry.teaserImage["16x9"]}`
         : "https://upload.wikimedia.org/wikipedia/commons/5/50/Mta_Logo.png",
       raw: entry.playback.mp4?.[0],
     })) as MTAEpisode[]

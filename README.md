@@ -3,6 +3,8 @@
 
 Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and various information sourced from the Ahmadiyya Muslim Jama'at.
 
+[![](https://dcbadge.vercel.app/api/server/sXbjZzH5zy?style=flat)](https://discord.gg/sXbjZzH5zy)
+
 ### Features
 
 - Cite verses from the Holy Quran with the `/verse` command. Provides English, Arabic, and Urdu translations automatically.
@@ -79,7 +81,7 @@ Not all writings will be retrieved (as not all books are available in PDF format
 
 ## Theology
 
-This repository and its facilities (i.e., discussions and issues) are **not** places for theological discussion or debate. All communication done on this repository is for <ins>technical</ins> purposes only. Keep religious discussion and debate out of the repository. If you dislike what this bot does or where it comes from, simply do not use it or choose an alternative.
+This repository and its facilities (i.e., discussions and issues) are **not** places for theological discussion or debate. All communication done on this repository is for <ins>technical</ins> purposes only. Keep religious discussion and debate out of the repository. You may discuss religious matters in the off-topic sections of the [Discord server](https://discord.gg/sXbjZzH5zy), however. If you dislike what this bot does or where it comes from, simply do not use it or choose an alternative.
 
 ## License
 

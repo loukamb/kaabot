@@ -1,7 +1,7 @@
 <img width="64" height="64" align="right" src="logo.svg">
 <h1>Kaab'ot</h1>
 
-Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and various information sourced from the Ahmadiyya Muslim Jama'at.
+Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and various information sourced from the Ahmadiyya Muslim Jama'at. [**Add now.**](https://discord.com/oauth2/authorize?client_id=1215815540803895378&permissions=277025442880&scope=bot)
 
 [![](https://dcbadge.vercel.app/api/server/sXbjZzH5zy?style=flat)](https://discord.gg/sXbjZzH5zy)
 
@@ -43,11 +43,11 @@ Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and 
 
 ## Usage
 
-This project requires [Node.js](https://nodejs.org/en) 20 or above. **There is currently no (official) publicly usable instance of the bot** (other than the one available in the [Discord server](https://discord.gg/sXbjZzH5zy), but it is hosted for that server exclusively). For now, you will have to host it yourself.
+You can add this Discord bot to your guild with [this link](https://discord.com/oauth2/authorize?client_id=1215815540803895378&permissions=277025442880&scope=bot). If you'd like to try the bot before inviting it to your guild, you can join the official [Discord server](https://discord.gg/sXbjZzH5zy) first.
 
-### Hosting
+### Self-hosting
 
-[Create a Discord bot first, making sure to invite it to your guild(s) immediately after.](https://discord.com/developers/docs/getting-started#step-1-creating-an-app) Then, clone this repository into an empty folder, and create a `.env` file with the following values:
+This project requires [Node.js](https://nodejs.org/en) 20 or above. [Create a Discord bot first, making sure to invite it to your guild(s) immediately after.](https://discord.com/developers/docs/getting-started#step-1-creating-an-app) Then, clone this repository into an empty folder, and create a `.env` file with the following values:
 
 ```shell
 # Insert your bot's client ID here.
@@ -55,9 +55,6 @@ DISCORD_BOT_CLIENT="..."
 
 # Insert your bot's token here.
 DISCORD_BOT_SECRET="..."
-
-# Insert the guild IDs here, separated by commas.
-GUILDS="123456789,123456789,123456789"
 ```
 
 Afterwards, run the following commands and the bot will launch automatically:

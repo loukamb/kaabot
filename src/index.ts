@@ -23,39 +23,26 @@ import {
   SlashCommandBuilder as Command,
   REST,
   Routes,
+  Guild,
 } from "discord.js"
 
 import embed from "./embed"
 import commands, { build } from "./commands"
 
-// The guilds we have access to.
-const guilds = process.env.GUILDS?.split(",")
-if (!guilds) {
-  throw new Error(
-    '"GUILDS" environment variable must be set. Insert guild IDs separated by a comma.'
-  )
-}
+const secret = process.env.DISCORD_BOT_SECRET!
 
 // Create the client.
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
+const globalRest = new REST().setToken(secret)
+const globalCmds = commands.map((cmd) => build(cmd).toJSON())
 
-client.on("ready", async () => {
-  // Build all the commands.
-  const body = commands.map((cmd) => build(cmd).toJSON())
-
-  // Update the command on all guilds we have access to.
-  const rest = new REST().setToken(process.env.DISCORD_BOT_SECRET!)
-  for (const guild of guilds) {
-    try {
-      await rest.put(
-        Routes.applicationGuildCommands(process.env.DISCORD_BOT_CLIENT!, guild),
-        { body }
-      )
-    } catch {
-      // Skip for now.
-    }
-  }
-})
+async function onGuildRecognition(guild: Guild) {
+  console.log(`Updating commands for "${guild.name}" (${guild.id})`)
+  await globalRest.put(
+    Routes.applicationGuildCommands(process.env.DISCORD_BOT_CLIENT!, guild.id),
+    { body: globalCmds }
+  )
+}
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) {
@@ -82,4 +69,27 @@ client.on("interactionCreate", async (interaction) => {
   }
 })
 
-client.login(process.env.DISCORD_BOT_SECRET)
+client.on("guildCreate", async (guild) => {
+  console.log(`Joining guild "${guild.name}" (${guild.id})`)
+  try {
+    await onGuildRecognition(guild)
+  } catch (e) {
+    console.error(e)
+  }
+})
+
+client.on("guildDelete", async (guild) => {
+  console.log(`Removed from guild "${guild.name}" (${guild.id})`)
+})
+
+client.on("ready", async () => {
+  for (const [, guild] of client.guilds.cache) {
+    try {
+      await onGuildRecognition(guild)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+})
+
+client.login(secret)

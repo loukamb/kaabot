@@ -43,7 +43,7 @@ Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and 
 
 ## Usage
 
-This project requires [Node.js](https://nodejs.org/en) 20 or above. **There is currently no (official) public instance of the bot.** For now, you will have to host it yourself.
+This project requires [Node.js](https://nodejs.org/en) 20 or above. **There is currently no (official) publicly usable instance of the bot** (other than the one available in the [Discord server](https://discord.gg/sXbjZzH5zy), but it is hosted for that server exclusively). For now, you will have to host it yourself.
 
 ### Hosting
 

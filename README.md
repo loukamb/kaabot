@@ -77,6 +77,10 @@ To enable use of `/library` commands, you need to run `npm run books` after inst
 
 Not all writings will be retrieved (as not all books are available in PDF format), and building the library is entirely optional, especially if you are not comfortable with scraping the website. However, the `/library` command will not be available if you do not do so.
 
+## Theology
+
+This repository and its facilities (i.e., discussions and issues) are **not** places for theological discussion or debate. All communication done on this repository is for <ins>technical</ins> purposes only. Keep religious discussion and debate out of the repository. If you dislike what this bot does or where it comes from, simply do not use it or choose an alternative.
+
 ## License
 
 This work is licensed under the GNU Affero General Public License (AGPL) Version 3. For more information, consult [the license file.](/LICENSE)

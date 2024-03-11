@@ -36,4 +36,4 @@ export default {
       })
     )
   },
-} satisfies BotCommand as BotCommand
+} as BotCommand

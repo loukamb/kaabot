@@ -41,11 +41,28 @@ export default {
       type: "boolean",
       default: false,
     },
+    {
+      name: "disregard-bismillah",
+      description:
+        "Whether the Bismillah should be disregarded during verse numbering.",
+      type: "boolean",
+      default: false,
+    },
   ],
   async command(interaction) {
     const analysis = interaction.options.getBoolean("analysis") ?? false
     const chapter = interaction.options.getNumber("chapter", true)
-    const verse = interaction.options.getNumber("verse", true)
+
+    let verse = interaction.options.getNumber("verse", true)
+    let finalVerse = verse
+    if (chapter !== 9) {
+      const nobismillah =
+        interaction.options.getBoolean("disregard-bismillah") ?? false
+      if (nobismillah) {
+        finalVerse = verse
+        verse = Math.max(1, verse + 1)
+      }
+    }
 
     const verseInfo = (await idiomaticSearch(`${chapter}:${verse}`))[0]
     if (verseInfo === undefined) {
@@ -54,7 +71,7 @@ export default {
 
     await interaction.editReply(
       embed({
-        title: `Holy Quran, ${verseInfo.chapterName.transliteration} (${verseInfo.chapterName.arabic}), Verse ${verse}`,
+        title: `Holy Quran, ${verseInfo.chapterName.transliteration} (${verseInfo.chapterName.arabic}), Verse ${finalVerse}`,
         contents: verseInfo.translations.english,
         fields: analysis
           ? [

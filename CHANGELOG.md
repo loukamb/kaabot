@@ -1,5 +1,15 @@
 # Changelog
 
+## Kaab'ot 1.1.1 (in progress)
+
+### User
+
+- Added version to response prompts.
+
+### Technical
+
+- Added support for nightly mode.
+
 ## Kaab'ot 1.1.0
 
 ### User

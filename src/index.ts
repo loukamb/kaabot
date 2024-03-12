@@ -24,6 +24,7 @@ import {
   REST,
   Routes,
   Guild,
+  RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "discord.js"
 
 import version from "./version"
@@ -33,12 +34,23 @@ import settings from "./settings"
 
 const secret = process.env.DISCORD_BOT_SECRET!
 
+// Mode. Used for the nightly bot.
+const mode = process.env.MODE
+
 // Create the client.
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 })
 const globalRest = new REST().setToken(secret)
-const globalCmds = commands.map((cmd) => build(cmd).toJSON())
+
+let globalCmds: RESTPostAPIChatInputApplicationCommandsJSONBody[]
+if (mode === "nightly") {
+  globalCmds = commands.map((cmd) =>
+    build({ ...cmd, name: `nightly-${cmd.name}` }).toJSON()
+  )
+} else {
+  globalCmds = commands.map((cmd) => build(cmd).toJSON())
+}
 
 async function onGuildRecognition(
   guild: Guild,
@@ -69,7 +81,9 @@ client.on("interactionCreate", async (interaction) => {
   }
 
   const existingCommand = commands.find(
-    (cmd) => cmd.name === interaction.commandName
+    (cmd) =>
+      (mode === "nightly" ? `nightly-${cmd.name}` : cmd.name) ===
+      interaction.commandName
   )
   if (existingCommand !== undefined) {
     const { logging } = await settings()
@@ -139,7 +153,9 @@ client.on("ready", async () => {
 })
 
 console.log(
-  `Kaab'ot ${version} @ https://kaabot.org\nSource code available at https://github.com/mblouka/kaabot`
+  `Kaab'ot ${version}${
+    mode ? ` (${mode})` : ""
+  } @ https://kaabot.org\nSource code available at https://github.com/mblouka/kaabot`
 )
 
 // Preload settings.

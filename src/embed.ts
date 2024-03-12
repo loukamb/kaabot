@@ -43,7 +43,11 @@ export default function embed({
         .setDescription(contents)
         .addFields(...(fields ?? []))
         .setTimestamp()
-        .setFooter({ text: `Kaab'ot ${version}` }),
+        .setFooter({
+          text: `Kaab'ot ${version}${
+            process.env.MODE ? ` (${process.env.MODE})` : ""
+          }`,
+        }),
     ],
   }
 }

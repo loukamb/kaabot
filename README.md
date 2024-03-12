@@ -1,4 +1,4 @@
-<img width="64" height="64" align="right" src="logo.svg">
+<img width="64" height="64" align="right" src="./logos/logo.svg">
 <h1>Kaab'ot</h1>
 
 Pretty little Discord bot that provides knowledge on Islam, the Holy Quran, and various information sourced from the Ahmadiyya Muslim Jama'at. [**Add now.**](https://add.kaabot.org)

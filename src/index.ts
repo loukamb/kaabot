@@ -26,22 +26,41 @@ import {
   Guild,
 } from "discord.js"
 
+import version from "./version"
 import embed from "./embed"
 import commands, { build } from "./commands"
+import settings from "./settings"
 
 const secret = process.env.DISCORD_BOT_SECRET!
 
 // Create the client.
-const client = new Client({ intents: [GatewayIntentBits.Guilds] })
+const client = new Client({
+  intents: [GatewayIntentBits.Guilds],
+})
 const globalRest = new REST().setToken(secret)
 const globalCmds = commands.map((cmd) => build(cmd).toJSON())
 
-async function onGuildRecognition(guild: Guild) {
+async function onGuildRecognition(
+  guild: Guild,
+  logCommandRegistration: boolean
+) {
   console.log(`Updating commands for "${guild.name}" (${guild.id})`)
-  await globalRest.put(
-    Routes.applicationGuildCommands(process.env.DISCORD_BOT_CLIENT!, guild.id),
-    { body: globalCmds }
-  )
+  try {
+    await globalRest.put(
+      Routes.applicationGuildCommands(
+        process.env.DISCORD_BOT_CLIENT!,
+        guild.id
+      ),
+      { body: globalCmds }
+    )
+  } catch (e) {
+    if (logCommandRegistration) {
+      console.error(
+        `Error updating commands for "${guild.name}" (${guild.id}):`
+      )
+      console.error(e)
+    }
+  }
 }
 
 client.on("interactionCreate", async (interaction) => {
@@ -53,11 +72,30 @@ client.on("interactionCreate", async (interaction) => {
     (cmd) => cmd.name === interaction.commandName
   )
   if (existingCommand !== undefined) {
+    const { logging } = await settings()
+
+    if (logging?.logCommandInvocations) {
+      const optionsFormatted = interaction.options.data
+        .map((opt) => `${opt.name}=${opt.value?.toString() ?? "undefined"}`)
+        .join(", ")
+      console.log(
+        `Command "${
+          interaction.commandName
+        }" executing with options ${optionsFormatted} by ${
+          interaction.user.id
+        } (${interaction.user.username}) in guild ${
+          interaction.guild?.id ?? "undefined"
+        } (${interaction.guild?.name ?? "undefined"})`
+      )
+    }
+
     try {
       await interaction.deferReply()
       await existingCommand.command(interaction)
     } catch (e) {
-      console.error(e)
+      if (logging?.logErrors?.commandRuntime) {
+        console.error(e)
+      }
       await interaction.editReply(
         embed({
           title: "Error.",
@@ -72,7 +110,11 @@ client.on("interactionCreate", async (interaction) => {
 client.on("guildCreate", async (guild) => {
   console.log(`Joining guild "${guild.name}" (${guild.id})`)
   try {
-    await onGuildRecognition(guild)
+    const { logging } = await settings()
+    await onGuildRecognition(
+      guild,
+      logging?.logErrors?.commandRegistration ?? true
+    )
   } catch (e) {
     console.error(e)
   }
@@ -83,13 +125,25 @@ client.on("guildDelete", async (guild) => {
 })
 
 client.on("ready", async () => {
+  const { logging } = await settings()
   for (const [, guild] of client.guilds.cache) {
     try {
-      await onGuildRecognition(guild)
+      await onGuildRecognition(
+        guild,
+        logging?.logErrors?.commandRegistration ?? true
+      )
     } catch (e) {
       console.error(e)
     }
   }
 })
 
+console.log(
+  `Kaab'ot ${version} @ https://kaabot.org\nSource code available at https://github.com/mblouka/kaabot`
+)
+
+// Preload settings.
+await settings()
+
+// Start bot!
 client.login(secret)

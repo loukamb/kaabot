@@ -17,6 +17,7 @@
 
 import { BotCommand } from "."
 import { idiomaticSearch } from "../api/OpenQuran"
+import settings from "../settings"
 import embed from "../embed"
 
 export default {
@@ -50,6 +51,7 @@ export default {
     },
   ],
   async command(interaction) {
+    const { countBismillah } = await settings()
     const analysis = interaction.options.getBoolean("analysis") ?? false
     const chapter = interaction.options.getNumber("chapter", true)
 
@@ -57,7 +59,7 @@ export default {
     let finalVerse = verse
     if (chapter !== 9) {
       const nobismillah =
-        interaction.options.getBoolean("disregard-bismillah") ?? false
+        interaction.options.getBoolean("disregard-bismillah") ?? !countBismillah
       if (nobismillah) {
         finalVerse = verse
         verse = Math.max(1, verse + 1)

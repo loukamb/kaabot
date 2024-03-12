@@ -16,6 +16,7 @@
  */
 
 import { EmbedBuilder } from "discord.js"
+import version from "./version"
 
 export default function embed({
   title,
@@ -41,7 +42,8 @@ export default function embed({
         .setTitle(title)
         .setDescription(contents)
         .addFields(...(fields ?? []))
-        .setTimestamp(),
+        .setTimestamp()
+        .setFooter({ text: `Kaab'ot ${version}` }),
     ],
   }
 }

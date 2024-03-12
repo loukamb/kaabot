@@ -131,3 +131,6 @@ dist
 
 # Remove library.
 library/
+
+# Remove settings json.
+settings.json

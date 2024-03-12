@@ -3,6 +3,7 @@
         "strict": true,
         "target": "ESNext",
         "noEmit": true,
+        "module": "ESNext",
         "moduleResolution": "Bundler"
     }
 }

@@ -25,15 +25,9 @@ export default {
   description: "Lookup a verse in the Holy Quran.",
   options: [
     {
-      name: "chapter",
-      description: "Chapter to lookup",
-      type: "number",
-      required: true,
-    },
-    {
-      name: "verse",
-      description: "Verse to lookup",
-      type: "number",
+      name: "query",
+      description: "Chapter and verse(s). E.g., '1:1' or '1:1-3'.",
+      type: "string",
       required: true,
     },
     {
@@ -52,54 +46,99 @@ export default {
   ],
   async command(interaction) {
     const { countBismillah } = await settings()
+    const query = interaction.options.getString("query", true).trim()
     const analysis = interaction.options.getBoolean("analysis") ?? false
-    const chapter = interaction.options.getNumber("chapter", true)
 
-    let verse = interaction.options.getNumber("verse", true)
+    // Pattern match the components of the query.
+    let [, chapter_str, verse_str, range_str] =
+      query.match(/(\d+)[:\s]+(\d+)(?:\s*-\s*(\d+))?/) ?? []
+    if (chapter_str === undefined) {
+      throw new Error("Invalid query format.")
+    }
+
+    // Parse provided parameters into integers.
+    let [chapter, verse, range] = [
+      parseInt(chapter_str),
+      parseInt(verse_str),
+      parseInt(range_str),
+    ]
+
+    // Adjust for those who want to disregard the bismillah.
+    let finalRange = range
     let finalVerse = verse
     if (chapter !== 9) {
       const nobismillah =
         interaction.options.getBoolean("disregard-bismillah") ?? !countBismillah
       if (nobismillah) {
+        finalRange = range
         finalVerse = verse
+        range = Math.max(1, range + 1)
         verse = Math.max(1, verse + 1)
       }
     }
 
-    const verseInfo = (await idiomaticSearch(`${chapter}:${verse}`))[0]
-    if (verseInfo === undefined) {
-      throw new Error(`Verse "${chapter}:${verse} not found."`)
+    // Do da search.
+    const verses = await idiomaticSearch(
+      `${chapter}:${verse}${range != null ? `-${range}` : ""}`
+    )
+
+    if (verses[0] === undefined) {
+      throw new Error(
+        `Verse(s) "${chapter}:${verse}${
+          range != null ? `-${range}` : ""
+        } not found."`
+      )
     }
 
-    await interaction.editReply(
-      embed({
-        title: `Holy Quran, ${verseInfo.chapterName.transliteration} (${verseInfo.chapterName.arabic}), Verse ${finalVerse}`,
-        buttons: [
-          {
-            text: "📖 Open in Quran",
-            url: `https://www.alislam.org/quran/app/${chapter}:${verse}`,
-          },
-        ],
-        contents: verseInfo.translations.english,
-        fields: analysis
-          ? [
-              { name: "Arabic", value: verseInfo.translations.arabic },
-              {
-                name: "Analysis",
-                value: Object.entries(verseInfo.analysis)
-                  .map(([arabicWord, info]) =>
-                    typeof info !== "string"
-                      ? `- \u200E( **${arabicWord}** ): ${info.transliterations.english} (${info.translations.english})`
-                      : "- " + arabicWord
-                  )
-                  .join("\n"),
-              },
-            ]
-          : [
-              { name: "Arabic", value: verseInfo.translations.arabic },
-              { name: "Urdu", value: verseInfo.translations.urdu },
-            ],
-      })
-    )
+    if (verses.length === 1) {
+      const singleVerse = verses[0]
+      await interaction.editReply(
+        embed({
+          title: `Holy Quran, ${singleVerse.chapterName.transliteration} (${singleVerse.chapterName.arabic}), Verse ${finalVerse}`,
+          buttons: [
+            {
+              text: "📖 Open in Quran",
+              url: `https://www.alislam.org/quran/app/${chapter}:${verse}`,
+            },
+          ],
+          contents: singleVerse.translations.english,
+          fields: analysis
+            ? [
+                { name: "Arabic", value: singleVerse.translations.arabic },
+                {
+                  name: "Analysis",
+                  value: Object.entries(singleVerse.analysis)
+                    .map(([arabicWord, info]) =>
+                      typeof info !== "string"
+                        ? `- \u200E( **${arabicWord}** ): ${info.transliterations.english} (${info.translations.english})`
+                        : "- " + arabicWord
+                    )
+                    .join("\n"),
+                },
+              ]
+            : [
+                { name: "Arabic", value: singleVerse.translations.arabic },
+                { name: "Urdu", value: singleVerse.translations.urdu },
+              ],
+        })
+      )
+    } else {
+      await interaction.editReply(
+        embed({
+          title: `Holy Quran, ${verses[0].chapterName.transliteration} (${verses[0].chapterName.arabic}), Verses ${query}`,
+          buttons: [
+            {
+              text: "📖 Open in Quran",
+              url: `https://www.alislam.org/quran/app/${chapter}:${verse}`,
+            },
+          ],
+          contents: `${verses.length} verses found.`,
+          fields: verses.map((v) => ({
+            name: `${v.chapterName.transliteration} ${v.chapter}:${v.verse}`,
+            value: v.translations.english,
+          })),
+        })
+      )
+    }
   },
 } as BotCommand

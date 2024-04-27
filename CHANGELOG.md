@@ -1,5 +1,18 @@
 # Changelog
 
+## Kaab'ot 1.2.0
+
+### User
+
+- Adjusted embed color to a more earthly tone.
+- `/verse` now accepts more flexible queries.
+  - Instead of specifying a chapter and verse in distinct options, you can simply input `chapter:verse` (e.g. `1:1`).
+  - Multiple verses can also be retrieved with an optional range parameter (e.g. `1:1-3`).
+
+### Technical
+
+No changes.
+
 ## Kaab'ot 1.1.2
 
 ### User

@@ -68,7 +68,7 @@ export default function embed({
   return {
     embeds: [
       new EmbedBuilder()
-        .setColor(color ?? 0x00ff00)
+        .setColor(color ?? "#16a34a")
         .setImage(image ?? null)
         .setThumbnail(thumbnail ?? null)
         .setTitle(title)

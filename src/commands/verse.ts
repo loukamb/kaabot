@@ -74,6 +74,12 @@ export default {
     await interaction.editReply(
       embed({
         title: `Holy Quran, ${verseInfo.chapterName.transliteration} (${verseInfo.chapterName.arabic}), Verse ${finalVerse}`,
+        buttons: [
+          {
+            text: "📖 Open in Quran",
+            url: `https://www.alislam.org/quran/app/${chapter}:${verse}`,
+          },
+        ],
         contents: verseInfo.translations.english,
         fields: analysis
           ? [

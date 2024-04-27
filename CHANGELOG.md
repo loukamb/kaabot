@@ -1,6 +1,16 @@
 # Changelog
 
-## Kaab'ot 1.1.1 (in progress)
+## Kaab'ot 1.1.2
+
+### User
+
+- An `Open in Quran` button is now displayed below verse outputs.
+
+### Technical
+
+No changes.
+
+## Kaab'ot 1.1.1
 
 ### User
 

@@ -15,8 +15,19 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { EmbedBuilder } from "discord.js"
+import {
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} from "discord.js"
 import version from "./version"
+
+interface EmbedButton {
+  text: string
+  emoji?: string
+  url: string
+}
 
 export default function embed({
   title,
@@ -25,6 +36,7 @@ export default function embed({
   color,
   image,
   thumbnail,
+  buttons,
 }: {
   title: string
   contents: string
@@ -32,7 +44,27 @@ export default function embed({
   color?: number
   image?: string
   thumbnail?: string
+  buttons?: EmbedButton[]
 }) {
+  const components = [] as any[]
+  if (buttons) {
+    const row = new ActionRowBuilder().addComponents(
+      buttons.map((btn) => {
+        let btnbuild = new ButtonBuilder()
+          .setStyle(ButtonStyle.Link)
+          .setLabel(btn.text)
+          .setURL(btn.url)
+
+        if (btn.emoji) {
+          btnbuild = btnbuild.setEmoji(btn.emoji)
+        }
+
+        return btnbuild
+      })
+    )
+    components.push(row)
+  }
+
   return {
     embeds: [
       new EmbedBuilder()
@@ -49,5 +81,7 @@ export default function embed({
           }`,
         }),
     ],
+
+    components,
   }
 }

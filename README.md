@@ -8,7 +8,7 @@
 
 <p align="center">
 <img width="80" height="80" align="center" src="./logos/logo.svg"><br><Br>
-<b>Kaab'ot</b> is a pretty little Discord bot that provides knowledge related to Islam and from the Holy Quran. Developed as a modern replacement to other similar bots. <a href="https://add.kaabot.org"><b>Add now.</b></a><br><br>
+<b>Kaab'ot</b> is a pretty little Discord bot that provides knowledge related to Islam and from the Holy Quran. Developed as a modern, lightweight replacement to other similar bots. <a href="https://add.kaabot.org"><b>Add now.</b></a><br><br>
 <a href="https://discord.kaabot.org"><img src="https://dcbadge.vercel.app/api/server/sXbjZzH5zy?style=flat"></a>
 </p>
 

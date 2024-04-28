@@ -9,7 +9,7 @@
 <p align="center">
 <img width="80" height="80" align="center" src="./logos/logo.svg"><br><Br>
 <b>Kaab'ot</b> is a pretty little Discord bot that provides knowledge related to Islam and from the Holy Quran. Developed as a modern, lightweight replacement to other similar bots. <a href="https://add.kaabot.org"><b>Add now.</b></a><br><br>
-<a href="https://discord.kaabot.org"><img src="https://dcbadge.vercel.app/api/server/sXbjZzH5zy?style=flat"></a> <a href=""><img src="https://badgen.net/github/release/mblouka/kaabot"></a> <a href="LICENSE.md"><img src="https://badgen.net/github/license/mblouka/kaabot" /></a> 
+<a href="https://discord.kaabot.org"><img src="https://dcbadge.vercel.app/api/server/sXbjZzH5zy?style=flat"></a> <a href=""><img src="https://badgen.net/github/release/mblouka/kaabot?color=000000&labelColor=orange"></a> <a href="LICENSE.md"><img src="https://badgen.net/github/license/mblouka/kaabot?color=000000&labelColor=orange" /></a> <a href="https://alislam.org"><img src="https://badgen.net/static/Ahmadiyya/alislam.org/black?color=000000&labelColor=000000&icon=https://raw.githubusercontent.com/mblouka/kaabot/main/logos/ahmadiyya.svg"></a>
 </p>
 
 ---

@@ -31,8 +31,16 @@ export default {
       required: true,
     },
     {
+      name: "translations",
+      description:
+        "Separate by commas. Supported: `en`, `ar`, `ur`. Only supported in single verse mode.",
+      type: "string",
+      required: false,
+    },
+    {
       name: "analysis",
-      description: "Whether an analysis of the Arabic text should be included.",
+      description:
+        "Whether an analysis of the Arabic text should be included. Only supported in single verse mode.",
       type: "boolean",
       default: false,
     },
@@ -48,6 +56,9 @@ export default {
     const { countBismillah } = await settings()
     const query = interaction.options.getString("query", true).trim()
     const analysis = interaction.options.getBoolean("analysis") ?? false
+    const translations = (interaction.options.getString("translations") ?? "en")
+      .split(",")
+      .map((lang) => lang.trim())
 
     // Pattern match the components of the query.
     let [, chapter_str, verse_str, range_str] =
@@ -94,7 +105,7 @@ export default {
       const singleVerse = verses[0]
       await interaction.editReply(
         embed({
-          title: `Holy Quran, ${singleVerse.chapterName.transliteration} (${singleVerse.chapterName.arabic}), Verse ${finalVerse}`,
+          title: `Holy Quran, ${singleVerse.chapterName.transliteration} (${singleVerse.chapterName.arabic}, "${singleVerse.chapterName.english}"), Verse ${finalVerse}`,
           buttons: [
             {
               text: "📖 Open in Quran",
@@ -117,8 +128,12 @@ export default {
                 },
               ]
             : [
-                { name: "Arabic", value: singleVerse.translations.arabic },
-                { name: "Urdu", value: singleVerse.translations.urdu },
+                ...(translations.includes("ar")
+                  ? [{ name: "Arabic", value: singleVerse.translations.arabic }]
+                  : []),
+                ...(translations.includes("ur")
+                  ? [{ name: "Urdu", value: singleVerse.translations.urdu }]
+                  : []),
               ],
         })
       )

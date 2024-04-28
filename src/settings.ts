@@ -73,5 +73,15 @@ export default async function settings() {
     _settingsCache = defaultSettings
   }
 
+  if (!process.env.NOMINATIM_URL) {
+    console.log(
+      "⚠️ NOMINATIM_URL environment variable not found. Disabling geolocalization features."
+    )
+  } else {
+    console.log(
+      `Geolocalization features enabled. Using Nominatim instance at ${process.env.NOMINATIM_URL}`
+    )
+  }
+
   return _settingsCache
 }

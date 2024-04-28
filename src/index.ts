@@ -32,8 +32,6 @@ import embed from "./embed"
 import commands, { build } from "./commands"
 import settings from "./settings"
 
-import Prayer from "./api/Prayer"
-
 const secret = process.env.DISCORD_BOT_SECRET!
 
 // Mode. Used for the nightly bot.
@@ -152,6 +150,7 @@ client.on("ready", async () => {
       console.error(e)
     }
   }
+  console.log("Kaab'ot is ready to go! Mashallah!")
 })
 
 console.log(

@@ -14,7 +14,7 @@ async function geolocalize(query: string) {
 
   // TODO: Self-host.
   const request = await fetch(
-    `https://nominatim.openstreetmap.org/search?${params.toString()}`,
+    `${process.env.NOMINATIM_URL}/search?${params.toString()}`,
     {
       headers: {
         "User-Agent": "Kaabot <https://github.com/mblouka/kaabot>",

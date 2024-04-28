@@ -22,6 +22,12 @@ export default {
     },
   ],
   async command(interaction) {
+    if (process.env.NOMINATIM_URL === undefined) {
+      throw new Error(
+        "This bot does not have geolocalization setup. Please contact your bot administrator about this."
+      )
+    }
+
     const location = interaction.options.getString("location", true)
     const date = interaction.options.getString("date")
     const parsedDate = date ? chrono.parseDate(date) ?? new Date() : new Date()
@@ -37,7 +43,7 @@ export default {
           month: "long",
           day: "numeric",
         }).format(parsedDate)} for \`${prayers.name}\`:
-        
+
 - **Fajr**: ${prayers.times.fajr}
 - **Zuhr**: ${prayers.times.dhuhr}
 - **Asr**: ${prayers.times.asr}

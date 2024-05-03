@@ -3,6 +3,18 @@ import path from "node:path"
 
 export interface KaabotSettings {
   /**
+   * URL to Nominatim instance for geolocalization features. Experimental.
+   * Defaults to `undefined`.
+   */
+  readonly geolocalizationUrl?: string
+
+  /**
+   * Whether to enable the caching engine. Enabling this reduces hits to alislam.org.
+   * Defaults to `true`.
+   */
+  readonly cache: boolean
+
+  /**
    * Whether the bismillah should be counted as part of the verse numbering.
    * Defaults to `true`. User can manually turn this off as part of their queries.
    */
@@ -38,6 +50,7 @@ export interface KaabotSettings {
 }
 
 const defaultSettings = {
+  cache: true,
   countBismillah: true,
   logging: {
     logErrors: {
@@ -62,10 +75,10 @@ export default async function settings() {
       ) as Partial<KaabotSettings>
       _settingsCache = Object.assign({ ...defaultSettings }, loadedSettings)
     } catch (e) {
-      console.error(e)
-      console.log(
+      console.error(
         "An error was encountered while loading settings. Using defaults."
       )
+      console.error(e)
       _settingsCache = defaultSettings
     }
   } else {
@@ -73,13 +86,13 @@ export default async function settings() {
     _settingsCache = defaultSettings
   }
 
-  if (!process.env.NOMINATIM_URL) {
-    console.log(
-      "⚠️ NOMINATIM_URL environment variable not found. Disabling geolocalization features."
+  if (!_settingsCache.geolocalizationUrl) {
+    console.warn(
+      "Geolocalization features are disabled. Check README.md for more information."
     )
   } else {
     console.log(
-      `Geolocalization features enabled. Using Nominatim instance at ${process.env.NOMINATIM_URL}`
+      `Geolocalization features are enabled. Using Nominatim instance at ${_settingsCache.geolocalizationUrl}.`
     )
   }
 

@@ -19,9 +19,11 @@
 - Cite verses from the Holy Quran with the `/verse` command. Provides English, Arabic, and Urdu translations automatically.
   - Analyze the individual Arabic words of each verse by passing the optional `analyse` parameter.
   - Verses provided from [OpenQuran](https://www.openquran.com/), an easy-to-use Quran search engine.
+- Retrieve interesting commentary of the Holy Quran with the `/5v` command. Sources commentary from the [Five Volume Commentary](https://www.booksonislam.org/products/five-volume-commentary) collection (thus `5v`).
+  - Give it a single verse (e.g. `1:1`) and the bot will post the relevant page of the verse into chat.
 - On-demand retrieval of Salat timings with the `/salat` command, as well as an opt-in notifier/reminder for prayers with configurable location(s).
   - Uses [Nominatim](https://github.com/osm-search/Nominatim) for geolocalization. If you are hosting Kaab'ot yourself, you will also have to host your own Nominatim instance.
-  - **Work in progress.** Currently only available in the nightly version of the bot.
+  - **Experimental feature.** Must be manually enabled by administrators of self-hosted bots.
 - Fetch Friday Sermons from [Muslim Television Ahmadiyya International](https://beta.mta.tv/).
   - Provides both a permalink on MTA **and** a direct download link to a 1920x1080 (full HD) MP4 of the sermon.
   - Pass `list` parameter to retrieve the last 10 Friday sermons.
@@ -82,9 +84,6 @@ DISCORD_BOT_CLIENT="..."
 
 # Insert your bot's token here.
 DISCORD_BOT_SECRET="..."
-
-# (optional) Nominatim URL for geolocalization.
-NOMINATIM_URL="..."
 ```
 
 Afterwards, run the following commands and the bot will launch automatically:
@@ -108,7 +107,7 @@ Not all writings will be retrieved (as not all books are available in PDF format
 
 ### Geolocalization setup
 
-To enable use of `/salat` commands (and anything else that supports geolocalization queries), you have to provide a URL to a [Nominatim](https://github.com/osm-search/Nominatim) backend as an environment variable (`NOMINATIM_URL`). The bot will automatically detect the environment variable and enable the relevant commands.
+To enable use of `/salat` commands (and anything else that supports geolocalization queries), you have to provide a URL to a [Nominatim](https://github.com/osm-search/Nominatim) backend as the `geolocalizationUrl` field of your `settings.json` file. The bot will automatically detect the setting and enable the relevant commands.
 
 The public instance of Kaab'ot uses its own self-hosted backend, but it is _exclusively_ for the use of the public instance (as to avoid overuse from other bots). You will have to host your own if you want to self-host Kaab'ot. If you want to avoid this, just [add](https://add.kaabot.org) the public instance of the bot to your server instead.
 

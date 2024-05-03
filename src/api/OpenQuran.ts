@@ -123,7 +123,7 @@ interface OpenQuranIdiomaticWordInfo {
   }
 }
 
-interface OpenQuranIdiomaticVerse {
+export interface OpenQuranIdiomaticVerse {
   /**
    * Index of the chapter.
    */
@@ -193,7 +193,7 @@ export async function idiomaticSearch(query: string) {
       )!
 
       formattedResults.push({
-        verse: verse.id,
+        verse: verse.verseNum,
         chapter: verse.chapterNum,
         chapterName: {
           arabic: chapter.name,

@@ -1,6 +1,8 @@
 /** May Allah have mercy on my soul for this GARBAGE port. */
 import getPrayerTimes from "./ChernobylPrayer/PrayUi"
 
+import settings from "../settings"
+
 interface Geolocalization {
   lat: string
   lon: string
@@ -8,19 +10,21 @@ interface Geolocalization {
 }
 
 async function geolocalize(query: string) {
+  const nominatimUrl = (await settings()).geolocalizationUrl
+  if (nominatimUrl === undefined) {
+    throw new Error("Geolocalization URL is not provided in settings.json.")
+  }
+
   const params = new URLSearchParams()
   params.set("q", query)
   params.set("format", "jsonv2")
 
   // TODO: Self-host.
-  const request = await fetch(
-    `${process.env.NOMINATIM_URL}/search?${params.toString()}`,
-    {
-      headers: {
-        "User-Agent": "Kaabot <https://github.com/mblouka/kaabot>",
-      },
-    }
-  )
+  const request = await fetch(`${nominatimUrl}/search?${params.toString()}`, {
+    headers: {
+      "User-Agent": "Kaabot <https://github.com/mblouka/kaabot>",
+    },
+  })
 
   // TODO: Sanity checks on response.
   return (await request.json()) as readonly Geolocalization[]

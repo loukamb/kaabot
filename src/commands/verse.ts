@@ -140,7 +140,7 @@ export default {
     } else {
       await interaction.editReply(
         embed({
-          title: `Holy Quran, ${verses[0].chapterName.transliteration} (${verses[0].chapterName.arabic}), Verses ${query}`,
+          title: `Holy Quran, ${verses[0].chapterName.transliteration} (${verses[0].chapterName.arabic}, "${verses[0].chapterName.english}"), Verses ${query}`,
           buttons: [
             {
               text: "📖 Open in Quran",

@@ -2,6 +2,7 @@ import { BotCommand } from "."
 import Prayer from "../api/Prayer"
 import embed from "../embed"
 import * as chrono from "chrono-node"
+import settings from "../settings"
 
 export default {
   name: "salat",
@@ -22,9 +23,9 @@ export default {
     },
   ],
   async command(interaction) {
-    if (process.env.NOMINATIM_URL === undefined) {
+    if ((await settings()).geolocalizationUrl === undefined) {
       throw new Error(
-        "This bot does not have geolocalization setup. Please contact your bot administrator about this."
+        "Salat timing calculation is an experimental feature, and must be manually enabled by the bot administrator."
       )
     }
 

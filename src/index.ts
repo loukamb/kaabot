@@ -16,6 +16,7 @@
  */
 
 import "dotenv/config"
+import chalk from "chalk"
 
 import {
   Client,
@@ -27,10 +28,36 @@ import {
   RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "discord.js"
 
+import cache from "./cache"
 import version from "./version"
 import embed from "./embed"
 import commands, { build } from "./commands"
 import settings from "./settings"
+
+// Overwrite logging functions for ~style~.
+const [oldLog, oldWarn, oldError] = [console.log, console.warn, console.error]
+console.log = (fmt: string, ...args: any[]) =>
+  oldLog(
+    `${chalk.bgGreen(chalk.white("kb"))} ${chalk.bgBlue(
+      chalk.white("info")
+    )} ${fmt}`,
+    ...args
+  )
+console.warn = (fmt: string, ...args: any[]) =>
+  oldWarn(
+    `${chalk.bgGreen(chalk.white("kb"))} ${chalk.bgYellow(
+      chalk.white("warn")
+    )} ${fmt}`,
+    ...args
+  )
+
+console.error = (fmt: string, ...args: any[]) =>
+  oldError(
+    `${chalk.bgGreen(chalk.white("kb"))} ${chalk.bgRed(
+      chalk.white("err ")
+    )} ${fmt}`,
+    ...args
+  )
 
 const secret = process.env.DISCORD_BOT_SECRET!
 
@@ -90,16 +117,14 @@ client.on("interactionCreate", async (interaction) => {
 
     if (logging?.logCommandInvocations) {
       const optionsFormatted = interaction.options.data
-        .map((opt) => `${opt.name}=${opt.value?.toString() ?? "undefined"}`)
+        .map((opt) => `${opt.name}="${opt.value?.toString() ?? "undefined"}"`)
         .join(", ")
       console.log(
-        `Command "${
-          interaction.commandName
-        }" executing with options ${optionsFormatted} by ${
+        `Cmd ${interaction.commandName}(${optionsFormatted}) user=${
           interaction.user.id
-        } (${interaction.user.username}) in guild ${
+        }(${interaction.user.username}) guild=${
           interaction.guild?.id ?? "undefined"
-        } (${interaction.guild?.name ?? "undefined"})`
+        }(${interaction.guild?.name ?? "undefined"})`
       )
     }
 
@@ -154,13 +179,16 @@ client.on("ready", async () => {
 })
 
 console.log(
-  `Kaab'ot ${version}${
-    mode ? ` (${mode})` : ""
-  } @ https://kaabot.org\nSource code available at https://github.com/mblouka/kaabot`
+  `Kaab'ot ${version}${mode ? ` (${mode})` : ""} @ https://kaabot.org`
 )
+
+console.log("Source code available at https://github.com/mblouka/kaabot")
 
 // Preload settings.
 await settings()
+
+// Setup cache.
+await cache.setup()
 
 // Start bot!
 client.login(secret)

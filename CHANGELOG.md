@@ -1,24 +1,28 @@
 # Changelog
 
-## Kaab'ot 1.3.0 (in progress)
+## Kaab'ot 1.3.0
 
 ### User
 
-- **`/salat` is a command that can be used to retrieve the Salat timings.**
+- **`/5v` is a command that can be used to retrieve Holy Quran commentary from the [Five Volume Commentary](https://www.booksonislam.org/products/five-volume-commentary) collection.**
+  - Give it a single verse (e.g. `1:1`) and the bot will post the relevant page of the verse into chat.
+- **`/salat` is a command that can be used to retrieve Salat timings.** (experimental)
   - Salat timings are computed from the provided location (city name or precise address).
   - An optional date can be provided to retrieve Salat timings for a specific day.
   - Requires a Nominatim instance to be setup. See Technical section for details.
+  - **Experimental feature.** It must be manually enabled by bot administrators.
 - `/verse` now accepts the `translations` parameter, which is a comma-separated list of translations to include in the output.
   - Currently only supports `en`, `ar`, and `ur`.
 - Translated name of chapter now included in `/verse` outputs.
 
 ### Technical
 
-- Bot can now use a Nominatim instance to enable geolocalization features. **Without a Nominatim instance, the `/salat` command (and other geolocalization features) will be disabled.**
-  - Address to the Nominatim instance must be provided as the `NOMINATIM_URL` environment variable in `.env`.
+- Bot can now use a Nominatim instance to enable geolocalization features. This feature is experimental, and not enabled by default. **Without a Nominatim instance, the `/salat` command (and other geolocalization features) will be disabled.**
+  - Address to the Nominatim instance must be provided as the `geolocalizationUrl` field in `settings.json`.
   - Read [here](https://github.com/mediagis/nominatim-docker/tree/master/4.4) to learn how to self-host a Nominatim instance within a Docker container. Do note that you need _plenty_ of storage space to store all the data.
-
-The [public instance](https://kaabot.org) of Kaab'ot uses its own hosted Nominatim instance with full global data, so if you don't feel like hosting your own, just [add](https://add.kaabot.org) the public instance of the bot to your Discord server to spare you the trouble.
+- A cache engine is now implemented to memoize lookups wherever possible. Set `cache` to false in `settings.json` if you want to disable this for some reason.
+- Console outputs are now more readable.
+- Fixed bug with verse numbering.
 
 ## Kaab'ot 1.2.0
 

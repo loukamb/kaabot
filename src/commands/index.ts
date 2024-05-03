@@ -25,8 +25,19 @@ import sermon from "./sermon"
 import calendar from "./calendar"
 import library from "./library"
 import fivevol from "./5v"
+import hadith from "./hadith"
 import help from "./help"
-export default [source, verse, salat, sermon, calendar, library, fivevol, help]
+export default [
+  source,
+  verse,
+  salat,
+  sermon,
+  calendar,
+  library,
+  fivevol,
+  hadith,
+  help,
+]
 
 export interface BotCommandOption {
   readonly name: string

@@ -19,6 +19,8 @@
 - Cite verses from the Holy Quran with the `/verse` command. Provides English, Arabic, and Urdu translations automatically.
   - Analyze the individual Arabic words of each verse by passing the optional `analyse` parameter.
   - Verses provided from [OpenQuran](https://www.openquran.com/), an easy-to-use Quran search engine.
+- Cite hadiths from trusted Muslim scholars with the `/hadith` command.
+  - Give it a single book name and verse reference (e.g. `bukhari:6594`) and the bot will post the relevant paragraph into chat.
 - Retrieve interesting commentary of the Holy Quran with the `/5v` command. Sources commentary from the [Five Volume Commentary](https://www.booksonislam.org/products/five-volume-commentary) collection (thus `5v`).
   - Give it a single verse (e.g. `1:1`) and the bot will post the relevant page of the verse into chat.
 - On-demand retrieval of Salat timings with the `/salat` command, as well as an opt-in notifier/reminder for prayers with configurable location(s).
@@ -62,7 +64,6 @@
 
 #### Other
 
-- `/hadith` command to lookup ahadith.
 - Hijri → Gregorian conversion. Sadly the libraries used do not easily parse Hijri dates, only Gregorian dates. Gregorian → Hijri however works perfectly.
 - User suggestions (if any).
 

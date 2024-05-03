@@ -16,17 +16,36 @@
  */
 
 import { BotCommand } from "."
+
 import embed from "../embed"
+import hadith from "../api/Hadith"
 
 export default {
-  name: "help",
-  description: "Retrieves information about Kaab'ot's commands.",
+  name: "hadith",
+  description: "Retrieves a hadith from the many Hadith collections.",
+  options: [
+    {
+      name: "query",
+      description: "Book and id. E.g., 'bukhari:6594'.",
+      type: "string",
+      required: true,
+    },
+  ],
   async command(interaction) {
+    const query = interaction.options.getString("query", true).trim()
+    // Pattern match the components of the query.
+    let [, book_str, id_str] = query.match(/(\w+)[:\s]+(\d+)/) ?? []
+    if (book_str === undefined) {
+      throw new Error("Invalid query format.")
+    }
+
+    // Lookup the hadith.
+    const foundHadith = await hadith(book_str, id_str)
+
     await interaction.editReply(
       embed({
-        title: "Commands",
-        contents:
-          "A list of core commands can be accessed [here](https://kaabot.org). For a full list, either type in `/` or consult the [repository](https://github.com/mblouka/kaabot?tab=readme-ov-file#features).",
+        title: `${foundHadith.bookName} - ${foundHadith.id}`,
+        contents: foundHadith.translations.english!,
       })
     )
   },

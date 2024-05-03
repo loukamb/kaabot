@@ -1,5 +1,16 @@
 # Changelog
 
+## Kaab'ot 1.3.1
+
+### User
+
+- **`/hadith` is a command for retrieving hadiths.**
+  - Give it a single book name and verse reference (e.g. `bukhari:6594`) and the bot will post the relevant paragraph into chat.
+
+### Technical
+
+No changes.
+
 ## Kaab'ot 1.3.0
 
 ### User

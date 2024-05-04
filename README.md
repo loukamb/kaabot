@@ -29,6 +29,8 @@
 - Fetch Friday Sermons from [Muslim Television Ahmadiyya International](https://beta.mta.tv/).
   - Provides both a permalink on MTA **and** a direct download link to a 1920x1080 (full HD) MP4 of the sermon.
   - Pass `list` parameter to retrieve the last 10 Friday sermons.
+- Retrieval of the Bai'at (initiation into Islam) form, as well as the Conditions of Bai'at, with the `/baiat` command.
+  - Give it a single index from 1 until 10 and the bot will post the relevant Condition of Bai'at. If no index is provided, it will provide an explanation of Bai'at and a link to the form.
 - Access hundreds of selected writings and books from scholars, caliphs and Hazrat Mirza Ghulam Ahmad (a.s.).
   - Local library can be built from alislam.org with the `npm run books` command. Automatically downloads all PDF files too.
   - Search results can be curated with `skip` and `limit` parameters to prevent listing of 100+ books all at once in a single message.

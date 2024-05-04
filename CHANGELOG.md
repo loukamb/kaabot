@@ -1,5 +1,19 @@
 # Changelog
 
+## Kaab'ot 1.3.2 (in progress)
+
+### User
+
+- **`/baiat` is a command for retrieving the Conditions of Bai'at.**
+  - Give it a single index from 1 until 10 and the bot will post the relevant Condition of Bai'at. If no index is provided, it will provide an explanation of Bai'at and a link to the form.
+
+### Technical
+
+- Added Ahmadiyya logo to embed.
+- Added additional link to Holy Quran in verse outputs in the title embed (compatibility fix with older Discord clients, e.g. Aliucord).
+- Changed default color of embed from green to black in concordance with Ahmadiyya logo.
+- Removed useless dependencies.
+
 ## Kaab'ot 1.3.1
 
 ### User

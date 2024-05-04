@@ -102,6 +102,7 @@ export default {
     }
 
     if (verses.length === 1) {
+      const url = `https://www.alislam.org/quran/app/${chapter}:${verse}`
       const singleVerse = verses[0]
       await interaction.editReply(
         embed({
@@ -109,9 +110,10 @@ export default {
           buttons: [
             {
               text: "📖 Open in Quran",
-              url: `https://www.alislam.org/quran/app/${chapter}:${verse}`,
+              url,
             },
           ],
+          href: url,
           contents: singleVerse.translations.english,
           fields: analysis
             ? [

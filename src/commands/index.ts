@@ -26,6 +26,7 @@ import calendar from "./calendar"
 import library from "./library"
 import fivevol from "./5v"
 import hadith from "./hadith"
+import baiat from "./baiat"
 import help from "./help"
 export default [
   source,
@@ -36,6 +37,7 @@ export default [
   library,
   fivevol,
   hadith,
+  baiat,
   help,
 ]
 

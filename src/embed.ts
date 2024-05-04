@@ -37,6 +37,8 @@ export default function embed({
   image,
   thumbnail,
   buttons,
+  href,
+  logo,
 }: {
   title: string
   contents: string
@@ -45,6 +47,8 @@ export default function embed({
   image?: string
   thumbnail?: string
   buttons?: EmbedButton[]
+  href?: string
+  logo?: boolean
 }) {
   const components = [] as any[]
   if (buttons) {
@@ -65,23 +69,31 @@ export default function embed({
     components.push(row)
   }
 
-  return {
-    embeds: [
-      new EmbedBuilder()
-        .setColor(color ?? "#16a34a")
-        .setImage(image ?? null)
-        .setThumbnail(thumbnail ?? null)
-        .setTitle(title)
-        .setDescription(contents)
-        .addFields(...(fields ?? []))
-        .setTimestamp()
-        .setFooter({
-          text: `Kaab'ot ${version}${
-            process.env.MODE ? ` (${process.env.MODE})` : ""
-          }`,
-        }),
-    ],
+  let embed = new EmbedBuilder()
+    .setColor(color ?? "#000000")
+    .setImage(image ?? null)
+    .setThumbnail(thumbnail ?? null)
+    .setTitle(title)
+    .setDescription(contents)
+    .addFields(...(fields ?? []))
+    .setTimestamp()
+    .setFooter({
+      text: `Kaab'ot ${version}${
+        process.env.MODE ? ` (${process.env.MODE})` : ""
+      }`,
+      iconURL: "https://www.alislam.org/images/AMC_logo.png",
+    })
 
+  if (href) {
+    embed = embed.setURL(href)
+  }
+
+  if (logo) {
+    embed = embed.setThumbnail("https://www.alislam.org/images/AMC_logo.png")
+  }
+
+  return {
+    embeds: [embed],
     components,
   }
 }

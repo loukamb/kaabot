@@ -8,6 +8,7 @@ No changes.
 
 ### Technical
 
+- _Significantly_ improved how MTA data was accessed.
 - No longer dependent on `tz-lookup` and `moment`.
 
 ## Kaab'ot 1.3.3

@@ -189,33 +189,63 @@ async function search(query: string) {
   throw new Error("Unimplemented")
 }
 
+/** Whether to enable legacy sermon endpoint. */
+let legacySermonEndpoint = false
+
 /**
  * Retrieve the ten last Friday sermons from MTA.
  */
 export async function sermons() {
-  // Fetch the MTA webpage for the friday ermons.
-  const sermonPage = await (
-    await fetch("https://beta.mta.tv/brand/2/friday-sermon")
-  ).text()
-
-  // Parse the HTML.
-  const sermonHtml = parse(sermonPage)
-
-  // Locate the MTA endpoint to retrieve latest shows.
-  const scriptTags = sermonHtml.querySelectorAll("script")
-  const relevantScriptTag = scriptTags.find((tag) =>
-    tag.attributes.src?.includes("_ssgManifest")
-  )
-  const [, , , nextJsBuildHash] = relevantScriptTag!.attributes.src.split("/")
-  const endpoint = `https://beta.mta.tv/_next/data/${nextJsBuildHash}/brand/2/friday-sermon.json`
-
   // Retrieve the friday sermon data.
-  const sermonData = (await (await fetch(endpoint)).json()) as MTA
+  let sermonData
+  if (legacySermonEndpoint) {
+    // Fetch the MTA webpage for the friday ermons.
+    const sermonPage = await (
+      await fetch("https://beta.mta.tv/brand/2/friday-sermon")
+    ).text()
+
+    // Parse the HTML.
+    const sermonHtml = parse(sermonPage)
+
+    // Locate the MTA endpoint to retrieve latest shows.
+    const scriptTags = sermonHtml.querySelectorAll("script")
+    const relevantScriptTag = scriptTags.find((tag) =>
+      tag.attributes.src?.includes("_ssgManifest")
+    )
+    const [, , , nextJsBuildHash] = relevantScriptTag!.attributes.src.split("/")
+    const endpoint = `https://beta.mta.tv/_next/data/${nextJsBuildHash}/brand/2/friday-sermon.json`
+
+    sermonData = (await (await fetch(endpoint)).json()).pageProps.similar
+  } else {
+    // Orrrrr just use MTA's Algolia instance to retrieve shows :troll:
+    const AlgoliaApiKey = "10f13e1e7ec750bf80d8488c137c3ac9"
+    const AlgoliaAppId = "UPVYVTFQ1D"
+
+    sermonData = (
+      await (
+        await fetch(
+          "https://upvyvtfq1d-dsn.algolia.net/1/indexes/studio-online-web-prod/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.13.1)%3B%20Browser",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              query: "",
+              filters: `brandId:"2" AND recordedYear:${new Date().getFullYear()}`,
+              hitsPerPage: "100",
+            }),
+            headers: {
+              "Content-Type": "application/json; charset=UTF-8",
+              "X-Algolia-Api-Key": AlgoliaApiKey,
+              "X-Algolia-Application-Id": AlgoliaAppId,
+            },
+          }
+        )
+      ).json()
+    ).hits
+  }
 
   // Parse entries into more idiomatic objects.
-  const entries = sermonData.pageProps.similar
-  if (entries) {
-    return entries.map((entry) => ({
+  if (sermonData) {
+    return sermonData.map((entry: any) => ({
       uri: `https://beta.mta.tv${entry.permalink}`,
       title: entry.title_eng,
       description: entry.description_eng,

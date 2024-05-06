@@ -57,7 +57,9 @@ interface Definitions {
 
 export default async function dictionary(word: string) {
   if (process.env.UNSAFE !== "true") {
-    throw new Error("The bot administrator has not enabled this command.")
+    throw new Error(
+      "Dictionary lookup is an experimental feature, and must be manually enabled by the bot administrator."
+    )
   }
 
   const text = await (

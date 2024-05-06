@@ -4,6 +4,8 @@
 
 ### User
 
+- **`/dictionary` is a command for searching the definitions of Arabic words.**
+  - Very, very experimental, and current implementation also does an unsafe scrape (evals some JavaScript object literal). Because of this, the command is disabled by default. If you want to use it, set the `UNSAFE` environment to "true".
 - Added link to Sunnah in hadith outputs.
 
 ### Technical

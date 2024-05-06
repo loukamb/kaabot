@@ -1,5 +1,15 @@
 # Changelog
 
+## Kaab'ot 1.3.4 (in progress)
+
+### User
+
+No changes.
+
+### Technical
+
+- No longer dependent on `tz-lookup` and `moment`.
+
 ## Kaab'ot 1.3.3
 
 ### User

@@ -18,10 +18,12 @@
 // Extracted from https://www.ahmadiyya.ca/prayertimes/prayui.js
 // Heavily modified.
 
-// Forced to install these dependencies because this code from 1953
-// depends on it. Could switch to dayjs eventually.
-import tzlookup from "tz-lookup"
-import moment from "moment-timezone"
+import tzlookup from "./TzLookup"
+import dayjs from "dayjs"
+import dayjsUtc from "dayjs/plugin/utc.js"
+import dayjsTz from "dayjs/plugin/timezone.js"
+dayjs.extend(dayjsUtc)
+dayjs.extend(dayjsTz)
 
 import prayTimes from "./PrayTimes"
 prayTimes.adjust({
@@ -63,7 +65,7 @@ export default function getPrayerTimes(lat, long, time) {
     let dst = 0
     let tzone = "auto"
     tzone = tzlookup(lat, long)
-    tzone = moment(date).tz(tzone).utcOffset() / 60
+    tzone = dayjs(date).tz(tzone).utcOffset() / 60
 
     return prayTimes.getTimes(date, [lat, long], tzone, dst, "12h")
   }

@@ -1,6 +1,6 @@
 # Changelog
 
-## Kaab'ot 1.3.4 (in progress)
+## Kaab'ot 1.3.4
 
 ### User
 

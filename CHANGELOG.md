@@ -1,6 +1,16 @@
 # Changelog
 
-## Kaab'ot 1.3.2 (in progress)
+## Kaab'ot 1.3.3
+
+### User
+
+- Added link to Sunnah in hadith outputs.
+
+### Technical
+
+- Improved fault tolerance of `/hadith` queries.
+
+## Kaab'ot 1.3.2
 
 ### User
 

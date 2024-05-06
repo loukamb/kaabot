@@ -27,6 +27,7 @@ import library from "./library"
 import fivevol from "./5v"
 import hadith from "./hadith"
 import baiat from "./baiat"
+import dictionary from "./dictionary"
 import help from "./help"
 export default [
   source,
@@ -38,6 +39,7 @@ export default [
   fivevol,
   hadith,
   baiat,
+  dictionary,
   help,
 ]
 

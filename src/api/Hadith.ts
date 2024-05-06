@@ -60,9 +60,13 @@ export default async function hadith(
   bookId: string,
   reference: string
 ): Promise<Hadith> {
-  const text = await (
-    await fetch(`https://sunnah.com/${bookId}:${reference}`)
-  ).text()
+  const response = await fetch(`https://sunnah.com/${bookId}:${reference}`)
+  if (response.status !== 200) {
+    throw new Error(
+      `Couldn't find hadith ${reference} in "${bookId}". Please adjust your query and try again.`
+    )
+  }
+  const text = await response.text()
 
   // Parse HTML.
   const parsed = parse(text)
@@ -77,6 +81,9 @@ export default async function hadith(
   const english = hadithContainer
     ?.querySelector(".english_hadith_full .text_details")
     ?.text?.replace(/(\r\n|\n|\r)/gm, "")
+
+  // TODO: Might have to switch to an endpoint to retrieve this.
+  // Urdu text is not loaded by default (user interaction necessary).
   const urdu = hadithContainer
     ?.querySelector(".urdu_hadith_full")
     ?.text?.replace(/(\r\n|\n|\r)/gm, "")

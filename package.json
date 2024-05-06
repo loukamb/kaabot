@@ -5,6 +5,7 @@
   "main": "src/index.mjs",
   "type": "module",
   "scripts": {
+    "dev": "concurrently \"pnpm build --watch\" \"nodemon ./dist/index.mjs\"",
     "start": "node ./dist/index.mjs",
     "books": "node ./books.mjs",
     "build": "esbuild ./src/index.ts --bundle --platform=node --packages=external --format=esm --outfile=./dist/index.mjs"
@@ -27,8 +28,9 @@
     "tz-lookup": "^6.1.25"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.6",
     "@types/node": "^20.11.25",
-    "esbuild": "^0.20.1"
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.20.1",
+    "nodemon": "^3.1.0"
   }
 }

@@ -42,6 +42,7 @@
  * - Promising career at high-frequency trading firm
  */
 
+import { NodeHtmlMarkdown } from "node-html-markdown"
 import { parse } from "node-html-parser"
 
 interface Hadith {
@@ -99,6 +100,10 @@ export default async function hadith(
     id: parseInt(id_str),
     bookName,
     bookId,
-    translations: { arabic, english, urdu },
+    translations: {
+      arabic: arabic && NodeHtmlMarkdown.translate(arabic),
+      english: english && NodeHtmlMarkdown.translate(english),
+      urdu: urdu && NodeHtmlMarkdown.translate(urdu),
+    },
   }
 }

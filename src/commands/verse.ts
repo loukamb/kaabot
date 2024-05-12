@@ -64,7 +64,7 @@ export default {
     let [, chapter_str, verse_str, range_str] =
       query.match(/(\d+)[:\s]+(\d+)(?:\s*-\s*(\d+))?/) ?? []
     if (chapter_str === undefined) {
-      throw new Error("Invalid query format.")
+      throw new Error("Invalid query format. Queries must be formatted as `chapter:verse` (colon optional).")
     }
 
     // Parse provided parameters into integers.

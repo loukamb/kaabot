@@ -1,5 +1,15 @@
 # Changelog
 
+## Kaab'ot 1.3.5
+
+### User
+
+No changes.
+
+### Technical
+
+- Fixed markup parsing in `/hadith` outputs.
+
 ## Kaab'ot 1.3.4
 
 ### User

@@ -35,25 +35,32 @@ export default {
   async command(interaction) {
     const query = interaction.options.getString("query", true).trim()
     // Pattern match the components of the query.
-    let [, chapter_str, verse_str] = query.match(/(\d+)[:\s]+(\d+)/) ?? []
-    if (chapter_str === undefined) {
-      throw new Error("Invalid query format.")
+    let [, chapter_or_page_str, verse_str] =
+      query.match(/(\d+)[:\s]+(\d+)?/) ?? []
+    if (chapter_or_page_str === undefined) {
+      throw new Error(
+        "Invalid query format. Query must either be `chapter:verse`, or `page`."
+      )
     }
 
-    // See if we already have the page cached for it.
-    // This will result in an arbitrary fs lookup - we really trust regex in
-    // not screwing us over here :v
-    const cacheId = `5v-${chapter_str}-${verse_str}.jpg`
-    const cachedBuffer = await cache.get("image", cacheId)
-    if (cachedBuffer !== undefined) {
-      await interaction.editReply({ files: [cachedBuffer] })
-      return
+    const cacheId = `5v-${chapter_or_page_str}-${verse_str ?? "BADBADBAD"}.jpg`
+    if (verse_str !== undefined) {
+      // See if we already have the page cached for it.
+      // This will result in an arbitrary fs lookup - we really trust regex in
+      // not screwing us over here :v
+      const cachedBuffer = await cache.get("image", cacheId)
+      if (cachedBuffer !== undefined) {
+        await interaction.editReply({ files: [cachedBuffer] })
+        return
+      }
     }
 
     // Fetch 5v redirect information.
     const fvRedirect = await (
       await fetch(
-        `https://www.alislam.org/quran/view/?page=0&region=E51&CR=&verse=${chapter_str}:${verse_str}`,
+        verse_str !== undefined
+          ? `https://www.alislam.org/quran/view/?page=0&region=E51&CR=&verse=${chapter_or_page_str}:${verse_str}`
+          : `https://www.alislam.org/quran/view/?page=${chapter_or_page_str}`,
         { redirect: "follow" }
       )
     ).text()
@@ -102,6 +109,8 @@ export default {
     await interaction.editReply({ files: [flattenedImage] })
 
     // Write to cache for subsequent lookups.
-    cache.set("image", cacheId, flattenedImage)
+    if (verse_str !== undefined) {
+      cache.set("image", cacheId, flattenedImage)
+    }
   },
 } as BotCommand

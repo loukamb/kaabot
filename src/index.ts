@@ -21,11 +21,11 @@ import chalk from "chalk"
 import {
   Client,
   GatewayIntentBits,
-  SlashCommandBuilder as Command,
   REST,
   Routes,
   Guild,
   RESTPostAPIChatInputApplicationCommandsJSONBody,
+  ActivityType,
 } from "discord.js"
 
 import cache from "./cache"
@@ -175,12 +175,21 @@ client.on("ready", async () => {
       console.error(e)
     }
   }
+
+  client.user?.setPresence({
+    activities: [
+      {
+        name: "alislam.org",
+        type: ActivityType.Streaming,
+        url: "https://www.twitch.tv/mta_tv",
+      },
+    ],
+  })
+
   console.log("Kaab'ot is ready to go! Mashallah!")
 })
 
-console.log(
-  `Kaab'ot ${version}${mode ? ` (${mode})` : ""} @ https://kaabot.org`
-)
+console.log(`Kaab'ot ${version()} @ https://kaabot.org`)
 
 console.log("Source code available at https://github.com/mblouka/kaabot")
 

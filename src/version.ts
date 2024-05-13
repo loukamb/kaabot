@@ -15,5 +15,33 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { version } from "../package.json"
-export default version
+import fs from "node:fs"
+import { version as nodeVersion } from "../package.json"
+
+function commit() {
+  const rev = fs
+    .readFileSync(".git/HEAD")
+    .toString()
+    .trim()
+    .split(/.*[: ]/)
+    .slice(-1)[0]
+  if (rev.indexOf("/") === -1) {
+    return rev
+  } else {
+    return fs
+      .readFileSync(".git/" + rev)
+      .toString()
+      .trim()
+  }
+}
+
+let cache: string | undefined
+export default function version() {
+  return (
+    cache ??
+    (cache =
+      process.env.MODE === "nightly"
+        ? `nightly-${commit().substring(0, 7)}`
+        : nodeVersion)
+  )
+}

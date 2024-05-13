@@ -1,5 +1,16 @@
 # Changelog
 
+## Kaab'ot 1.3.6
+
+### User
+
+- Added page-specific lookups in `/5v` command (requested feature).
+- Bot's activity status now links to a live broadcast of MTA World.
+
+### Technical
+
+No changes.
+
 ## Kaab'ot 1.3.5
 
 ### User

@@ -78,9 +78,7 @@ export default function embed({
     .addFields(...(fields ?? []))
     .setTimestamp()
     .setFooter({
-      text: `Kaab'ot ${version}${
-        process.env.MODE ? ` (${process.env.MODE})` : ""
-      }`,
+      text: `Kaab'ot ${version()}`,
       iconURL: "https://www.alislam.org/images/AMC_logo.png",
     })
 

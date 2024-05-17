@@ -17,7 +17,6 @@
 ### Table of Contents
 
 - [Features](#features)
-  - [Nightly distribution](#nightly-distribution)
 - [Usage](#usage)
   - [Self-hosting](#self-hosting)
   - [Library setup](#library-setup)
@@ -27,8 +26,10 @@
   - [Discussion](#discussion)
 - [License](#license)
 
-
 ---
+
+> [!NOTE]
+> This project has reached maturity. As such, there won't be any new features. The public instance of the bot will continue to be maintained for the foreseeable future (as well as bugfixes and general upkeep of functionality).
 
 ## Features
 
@@ -69,10 +70,6 @@
   - `/library list-books` lists the books from an author.
   - `/library list-authors` lists all currently indexed authors.
 - Convert between Gregorian and Hijri dates using `/calendar`, understands both precise (e.g., "March 10, 2024") **and** imprecise/relative (e.g., "next friday", "2 weeks from now", etc.) inputs.
-
-### Nightly distribution
-
-If you want to test experimental or otherwise work-in-progress features, you can try them over at the [official Kaab'ot support server.](https://discord.kaabot.org) Simply use the `nightly-*` commands offered by Kaab'ot Nightly instead of the standard ones. At this moment, it's not possible to add the nightly distribution of the bot to third party servers.
 
 ## Usage
 

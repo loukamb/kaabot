@@ -135,13 +135,20 @@ client.on("interactionCreate", async (interaction) => {
       if (logging?.logErrors?.commandRuntime) {
         console.error(e)
       }
-      await interaction.editReply(
-        embed({
-          title: "Error.",
-          contents: (e as Error).message,
-          color: 0xff0000,
-        })
-      )
+      try {
+        await interaction.editReply(
+          embed({
+            title: "Error.",
+            contents: (e as Error).message,
+            color: 0xff0000,
+          })
+        )
+      } catch (ex) {
+        console.error(
+          `Error while posting reply. Discord is probably down/APIs are broken.`
+        )
+        console.error(ex)
+      }
     }
   }
 })

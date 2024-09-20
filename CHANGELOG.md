@@ -1,5 +1,15 @@
 # Changelog
 
+## Kaab'ot 1.3.7
+
+### User
+
+No changes.
+
+### Technical
+
+- Added additional error handling to prevent bot from going down when Discord goes down.
+
 ## Kaab'ot 1.3.6
 
 ### User

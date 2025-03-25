@@ -1,12 +1,4 @@
 <p align="center">
-<br>
-<b>﷽</b>
-<br><br>
-</p>
-
----
-
-<p align="center">
 <img width="80" height="80" align="center" src="./logos/logo.svg"><br><Br>
 <b>Kaab'ot</b> is a pretty little Discord bot that provides knowledge related to Islam and from the Holy Quran. Developed as a modern, lightweight replacement to other similar bots. <a href="https://add.kaabot.org"><b>Add now.</b></a><br><br>
 <a href="https://discord.kaabot.org"><img src="https://dcbadge.vercel.app/api/server/sXbjZzH5zy?style=flat"></a> <a href=""><img src="https://badgen.net/github/release/mblouka/kaabot?color=000000&labelColor=orange"></a> <a href="LICENSE.md"><img src="https://badgen.net/github/license/mblouka/kaabot?color=000000&labelColor=orange" /></a> <a href="https://alislam.org"><img src="https://badgen.net/static/Ahmadiyya/alislam.org/black?color=000000&labelColor=000000&icon=https://raw.githubusercontent.com/mblouka/kaabot/main/logos/ahmadiyya.svg"></a>
@@ -71,11 +63,7 @@
   - `/library list-authors` lists all currently indexed authors.
 - Convert between Gregorian and Hijri dates using `/calendar`, understands both precise (e.g., "March 10, 2024") **and** imprecise/relative (e.g., "next friday", "2 weeks from now", etc.) inputs.
 
-## Usage
-
-You can add this Discord bot to your guild with [this link](https://add.kaabot.org). If you'd like to try the bot before inviting it to your guild, you can join the official [Discord server](https://discord.kaabot.org) first.
-
-### Self-hosting
+## Self-hosting
 
 This project requires [Node.js](https://nodejs.org/en) 20 or above. [Create a Discord bot first, making sure to invite it to your guild(s) immediately after.](https://discord.com/developers/docs/getting-started#step-1-creating-an-app) Then, clone this repository into an empty folder, and create a `.env` file with the following values:
 
@@ -115,27 +103,6 @@ The public instance of Kaab'ot uses its own self-hosted backend, but it is _excl
 [**If you want to self-host Nominatim, please read this guide.**](https://github.com/mediagis/nominatim-docker/tree/master/4.4) I highly recommend using a Docker container on a cheap VPS with a lot of storage so you can import the most geolocalization data possible with minimal setup.
 
 **Alternatively**, you may use [OpenStreetMap's public Nominatim backend](https://nominatim.openstreetmap.org/) for your own self-hosted bot, but do note that it is subject to **strict** rate limits and you will have to display attribution somewhere in your server, which may not be ideal. For more information, read their [usage policy](https://operations.osmfoundation.org/policies/nominatim/).
-
-## Theology
-
-### About Islam
-
-**Want to learn more about Islam?** Feel free to consult these free, simple resources on the religion of Islam:
-
-- [**What is Islam?**](https://www.alislam.org/islam/)
-  - A short summary of the religion of Islam.
-- [**Why believe Islam?**](https://www.alislam.org/articles/why-i-believe-in-islam/)
-  - A personal, emotional testimony of why one may come to believe in Islam.
-- [**Have questions about Islam?**](https://www.alislam.org/askislam/)
-  - A well organized collection of questions and answers on Islam.
-- [**Do muslims believe in peace?**](https://www.muslimsforpeace.org/peace/)
-  - Answering the age-old question of the relationship between peace and Islam. Short answer: **of course!**
-- [**Read the Holy Quran**](https://alislam.org/quran/app/1)
-  - Use this free and quite nifty web application to read the Quran.
-
-### Discussion
-
-This repository and its facilities (i.e., discussions and issues) are **not** places for theological discussion or debate. All communication done on this repository is for <ins>technical</ins> purposes only. Keep religious discussion and debate out of the repository. You may discuss religious matters in the off-topic sections of the [Discord server](https://discord.kaabot.org), however. If you dislike what this bot does or where it comes from, simply do not use it or choose an alternative.
 
 ## License
 
